@@ -1,3 +1,4 @@
+import CategoryView from "@/views/CategoryView.vue";
 import HomeView from "../views/HomeView.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -8,6 +9,11 @@ const router = createRouter({
       path: "/",
       name: "Home",
       component: HomeView,
+    },
+    {
+      path: "/category",
+      name: "Category",
+      component: CategoryView,
     },
   ],
 });

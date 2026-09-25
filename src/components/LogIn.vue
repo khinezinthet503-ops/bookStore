@@ -7,7 +7,15 @@
       >
         X
       </button>
-      <form @submit="logIn" class="flex flex-col gap-4">
+      <form @submit.prevent="logIn" class="flex flex-col gap-4">
+        <h2 class="uppercase text-center mb-2 text-xl">Log in</h2>
+
+        <p
+          v-if="error"
+          class="text-red-500 text-sm bg-red-50 p-2 rounded border border-red-200"
+        >
+          {{ error }}
+        </p>
         <label>
           <span
             class="text-gray-700 after:ml-0.5 after:text-red-500 after:content-['*']"
@@ -50,6 +58,7 @@
 </template>
 
 <script>
+import useLogIn from "@/composable/useLogIn";
 import { ref } from "vue";
 
 export default {
@@ -57,10 +66,16 @@ export default {
   setup(props, { emit }) {
     let email = ref("");
     let password = ref("");
-    let logIn = () => {
-      console.log(email.value, password.value);
+    let { error, signIn } = useLogIn();
+    let logIn = async () => {
+      let res = await signIn(email.value, password.value);
+
+      if (res) {
+        console.log("Successfullly", res.user);
+        emit("close");
+      }
     };
-    return { email, password, logIn };
+    return { email, password, logIn, error };
   },
 };
 </script>

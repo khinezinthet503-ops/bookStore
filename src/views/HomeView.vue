@@ -1,39 +1,17 @@
 <template>
   <div>
-    <Navbar @openAuth="isAuth = true"></Navbar>
-    <div v-if="isAuth">
-      <div v-if="isSignUp">
-        <SignIn @close="isAuth = false" @switchToLogIn="isSignUp = false" />
-      </div>
-      <div v-else>
-        <LogIn @close="isAuth = false" @switchToLogIn="isSignUp = true" />
-      </div>
-    </div>
-    <BookCard></BookCard>
+    <section class="bg-brand-4/10 py-10 px-6 mb-6 text-center">
+      <h1 class="text-3xl font-bold text-gray-800 mb-2">
+        Welcome to ArethaStore
+      </h1>
+      <p class="text-gray-600">Explore our collection of books today.</p>
+    </section>
+    <BookCard title="🔥 Bestselling Books" query="bestsellers" />
+    <BookCard title="💻 Technology & Programming" query="programming" />
+    <BookCard title="🚀 Science Fiction" query="science_fiction" />
   </div>
 </template>
 
-<script>
-import BookCard from "../components/BookCard.vue";
-import SignIn from "../components/SignIn.vue";
-import Navbar from "../components/Navbar.vue";
-import { ref } from "vue";
-import LogIn from "@/components/LogIn.vue";
-
-export default {
-  components: {
-    BookCard,
-    SignIn,
-    Navbar,
-    LogIn,
-  },
-  setup() {
-    let isSignUp = ref(true);
-
-    let isAuth = ref(false);
-    return { isSignUp, isAuth };
-  },
-};
+<script setup>
+import BookCard from "@/components/BookCard.vue";
 </script>
-
-<style></style>
